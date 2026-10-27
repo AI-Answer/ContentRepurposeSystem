@@ -1,8 +1,8 @@
 # Content Repurpose System
 
-**One YouTube video in → a blog post, a Twitter thread, two LinkedIn posts, a Skool guide, and 3–5 short-form clips out — all in your voice, all grounded in your channel's real performance data.**
+**Turn one finished video into blog and social drafts, clip plans, and vertical reels with hooks you can test.**
 
-This is a [Claude Code](https://docs.claude.com/en/docs/claude-code) plugin. It bundles seven skills into a single, ordered workflow: you **onboard once**, then run the system before and after every video you publish. Instead of a generic "write me a tweet" prompt, every asset is generated through *your* Voice DNA and benchmarked against *your* top-performing titles.
+This [Claude Code](https://docs.claude.com/en/docs/claude-code) plugin has eight skills. **Onboard once** to set your channel and voice. Then use the skills to plan each video and reuse the finished edit. Title ideas use your channel performance data.
 
 > The running example in this README uses the channel **[@SaminYasar_](https://www.youtube.com/@SaminYasar_)** — Claude Code tutorials for stock-trading automation. Swap in your own handle during onboarding and everything below works the same.
 
@@ -19,7 +19,9 @@ This is a [Claude Code](https://docs.claude.com/en/docs/claude-code) plugin. It 
                                 │
    /ideation  →  /yt-titles     │     /content-cascade  →  blog + Twitter + LinkedIn (+guide)
        ↓             ↓          │            ↓
-   /hooks     →  /outlines      │     /short-form       →  3–5 Reels / Shorts / TikTok clips
+   /hooks     →  /outlines      │     /short-form       →  3–5 clip plans
+       │                        │            ↓
+       │                        │     /reels            →  plan → film hooks → render 9:16 variants
        │                        │
        └──── film the video ────┘
 ```
@@ -35,7 +37,7 @@ You publish **one** video. The system turns it into **a week of content** across
 In Claude Code:
 
 ```
-/plugin marketplace add Samin12/ContentRepurposeSystem
+/plugin marketplace add AI-Answer/ContentRepurposeSystem
 /plugin install content-repurpose-system
 ```
 
@@ -44,7 +46,7 @@ Restart Claude Code so the skills load, then run `/onboard`.
 ### Option B — clone and install the skills directly
 
 ```bash
-git clone https://github.com/Samin12/ContentRepurposeSystem.git
+git clone https://github.com/AI-Answer/ContentRepurposeSystem.git
 cd ContentRepurposeSystem
 cp -R skills/* ~/.claude/skills/      # note: no trailing slash on skills/*
 ```
@@ -57,10 +59,13 @@ Restart Claude Code, then run `/onboard`.
 |------|-----|---------|
 | **yt-dlp** | reads your upload history + "latest video" | `pip install yt-dlp` |
 | **Node.js** | transcript fetching + thread posting | [nodejs.org](https://nodejs.org) |
-| **Python 3** | channel performance script | usually preinstalled |
+| **Python 3** | channel performance and reel scripts | install Python 3 if missing |
+| **ffmpeg + ffprobe** | reel crops, audio, rendering, and checks | `brew install ffmpeg whisper-cpp` |
+| **whisper-cli** | local word timestamps for reel cuts and captions | included in `brew install ffmpeg whisper-cpp` |
+| **NumPy + Pillow** | raw-camera alignment and reel images | `python3 -m pip install numpy Pillow` |
 | `youtube-transcript` *(optional)* | free transcript fallback | `npm install youtube-transcript` |
 
-The `/onboard` skill checks all of these for you and prints the exact install command for anything missing.
+The `/onboard` skill checks the base channel tools. `/reels` also checks the reel tools above. Whisper needs a local model file; point `whisper-cli -m` at it. For Python packages, use a virtual environment if your Python requires one.
 
 ---
 
@@ -245,9 +250,25 @@ Hashtags:     #claudecode #ai #stocktrading #investing #fintech
 
 ---
 
+### Step 8: `/reels`: plan, film, render
+
+```
+You:  /reels /path/to/finished-edit.mp4
+```
+
+Use this after `/short-form`, or go straight to `/reels` when you want rendered files. It takes a finished local video or a YouTube URL. Add the raw camera takes and their matching mic files for the bottom camera panel.
+
+1. **Plan.** Claude picks 3-6 ideas from the word-timed transcript. It writes `work/reels.json`, `repurpose-plan.md`, and `film-hooks.md`. Each reel gets one footage hook and three film hooks scored with the Kallaway framework.
+2. **Film.** Record the listed lines. Each is at most 15 words and 4 seconds. Save them as `hooks-filmed/R1-H2.mov`, and so on. Say "attach my filmed hooks" to resume.
+3. **Render.** The renderer's `--all` option makes every reel with each available hook. Each variant keeps the same body. Check the contact sheets, captions against audio, sync, and loudness before posting.
+
+The default is 1080x1920: visuals on top, your raw camera on the bottom, and captions on the seam. Use `--panel-crop x,y,w,h` and `--cam-center x` for a different source layout. The [reels skill](skills/reels/SKILL.md) has the commands and [plan schema](skills/reels/references/reels-json.md).
+
+---
+
 ## What you have at the end
 
-After one filmed video and two commands, your `content/` folder (or Supabase drafts) holds:
+After the content commands and the reel filming loop, you have local files or drafts:
 
 | Asset | From | Ready for |
 |-------|------|-----------|
@@ -256,7 +277,8 @@ After one filmed video and two commands, your `content/` folder (or Supabase dra
 | 💼 LinkedIn post | `content-cascade` | LinkedIn |
 | 🧲 LinkedIn lead-magnet post | `content-cascade` *(tutorials)* | LinkedIn → email capture |
 | 📚 Skool guide (HTML) | `content-cascade` *(tutorials)* | your Skool / Claude Club |
-| 🎬 3–5 short-form clips | `short-form` | Reels, Shorts, TikTok |
+| 🎬 3–5 clip plans | `short-form` | Timestamps, hooks, and captions for editing |
+| 🎬 3-6 reels with available hook variants | `reels` | Reviewed 9:16 files in `out/` |
 
 Plus, from the pre-production side: a ranked idea, a tested title + thumbnail text, an aligned hook, and a filmable outline — so the next video is faster than the last.
 
@@ -273,8 +295,9 @@ Plus, from the pre-production side: a ranked idea, a tested title + thumbnail te
 | 4 | **outlines** | `/outlines <idea>` | Recording-ready outline with time budgets + production notes |
 | 5 | **content-cascade** | `/content-cascade <url\|latest>` | Blog + Twitter + LinkedIn (+ lead magnet + guide) |
 | 6 | **short-form** | `/short-form <url\|latest>` | 3–5 clips with hooks, captions, hashtags, timestamps |
+| 7 | **reels** | `/reels <video path\|url>` | Plan 3-6 reels, list hooks to film, and render variants |
 
-Each skill also activates from natural language — you don't have to use the slash command. "Give me title ideas for…" triggers `yt-titles`; "make shorts from my latest video" triggers `short-form`.
+You can also ask in plain English. "Give me title ideas" triggers `yt-titles`. "Make shorts from my latest video" triggers `short-form`. "What hooks should I film?" and "attach my filmed hooks" trigger `reels`.
 
 ---
 

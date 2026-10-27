@@ -6,19 +6,26 @@
   },
   "metadata": {
     "description": "Samin Yasar's content tooling for Claude Code.",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "plugins": [
     {
       "name": "content-repurpose-system",
       "source": "./",
-      "description": "Onboard your YouTube channel + voice, then ideate, title, hook, outline, and repurpose every video into blog, Twitter, LinkedIn, and short-form clips.",
-      "version": "1.0.0",
+      "description": "Set up your channel and voice, plan videos, and turn finished edits into blog, Twitter, LinkedIn, clip plans, and reels with filmed hooks.",
+      "version": "1.1.0",
       "author": {
         "name": "Samin Yasar",
         "url": "https://github.com/Samin12"
       },
-      "keywords": ["youtube", "content-repurposing", "creator-tools", "short-form", "skills"]
+      "keywords": [
+        "youtube",
+        "content-repurposing",
+        "creator-tools",
+        "short-form",
+        "skills",
+        "reels"
+      ]
     }
   ]
 }
