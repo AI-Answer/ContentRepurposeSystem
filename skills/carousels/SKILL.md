@@ -1,6 +1,6 @@
 ---
 name: carousels
-description: "Turn the best ideas in a finished video into tweet-style carousels for Instagram, LinkedIn, and TikTok photo mode. Writes the slides, picks real proof images, renders 1080x1350 PNG slides plus a LinkedIn PDF, and writes captions per platform. Trigger on 'make carousels from this video', 'turn this into a carousel', 'make an Instagram carousel', 'LinkedIn carousel', 'tweet-style slides', '/carousels', or any request to make carousel slides from a video, thread, or post."
+description: "Turn the best ideas in a finished video into tweet-style or Pixel-Pal carousels for Instagram, LinkedIn, and TikTok photo mode. Writes the slides, picks real proof images, renders 1080x1350 PNG slides plus a LinkedIn PDF, and writes captions per platform. Trigger on 'make carousels from this video', 'turn this into a carousel', 'make an Instagram carousel', 'LinkedIn carousel', 'tweet-style slides', '/carousels', or any request to make carousel slides from a video, thread, or post."
 ---
 
 # Carousels
@@ -19,6 +19,20 @@ Turn one finished video into 1-5 carousels. Each carousel carries one idea from 
 - "Turn the 2 prompts tip into a carousel"
 - "Make a LinkedIn PDF carousel"
 - `/carousels` or `/carousels <video folder, transcript, or YouTube URL>`
+
+## Two styles
+
+- **Tweet style (default).** Slides that look like posts on X, rendered locally by `render_carousel.py`. Exact text, real proof screenshots, free. Best for LinkedIn and for anything with a screenshot as proof.
+- **Pixel-Pal.** An orange 8-bit pixel mascot, a dark serif hook slide, white teaching slides with numbered chips and tip boxes. Each slide is generated with GPT Image 2 on Higgsfield (`gpt_image_2`, aspect `3:4`, then cropped to 1080x1350). Best for Instagram and TikTok, where it stops the scroll. Use it when the user says "Pixel-Pal", "the pixel mascot style", or "make it with Higgsfield".
+
+For Pixel-Pal, read [styles/pixel-pal/design-system.md](styles/pixel-pal/design-system.md) first. It holds the locked palette, the two slide types, the mascot spec, and the prompt template. Then:
+1. Generate one mascot reference image and pass it as the reference on every slide, so the mascot stays the same.
+2. Plan 6-8 slides: headline of 7 words or fewer, body of 2 short sentences or fewer. Put every string in quotes with "spelled exactly, verbatim", and ask for generous top and bottom margins (the 3:4 to 4:5 crop trims a little).
+3. Keep 4 or fewer generations in flight. Download each result and crop it to 1080x1350.
+4. Check every slide for spelling, the right orange word, the same mascot, and nothing cut off. Regenerate failures with the same prompt once, then with shorter copy.
+5. Save into the carousel's folder under `pixel-pal/`, with `slides/`, a LinkedIn PDF, and `prompts.json`. The captions are shared with the tweet-style version.
+
+The design system comes from [Samin12/pixel-pal-carousel](https://github.com/Samin12/pixel-pal-carousel).
 
 ## Input and Setup
 
