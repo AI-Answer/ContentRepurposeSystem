@@ -110,6 +110,18 @@ cp "$CLAUDE_PLUGIN_ROOT/.env.example" "$CLAUDE_PLUGIN_ROOT/skills/content-cascad
 
 Write the values into `${CLAUDE_PLUGIN_ROOT}/skills/content-cascade/.env`. Never echo secrets back in full — confirm with the last 4 characters only.
 
+## Step 3b — Carousel profile (optional)
+
+`/carousels` draws slides that look like posts on X: photo, name, badge, handle. Ask: *"For carousels: what name and handle should show on each slide, do you have a verified badge, and where is a square headshot photo on this computer?"* Skip if they don't want carousels yet.
+
+Write the answers to `${CLAUDE_PLUGIN_ROOT}/skills/carousels/profile.json` (git ignores it):
+
+```json
+{ "name": "Samin Yasar", "handle": "@SaminYasar_", "verified": true, "headshot": "/Users/you/Pictures/headshot.png" }
+```
+
+Store only the path to the photo. Never copy the photo into the plugin. If the file doesn't exist, say so; the slides draw a gray circle until it does.
+
 ## Step 4 — Prerequisites check
 
 These power transcript fetching and channel data. Check and report; offer the install commands if missing:
@@ -118,6 +130,7 @@ These power transcript fetching and channel data. Check and report; offer the in
 command -v yt-dlp >/dev/null && echo "yt-dlp ✓" || echo "yt-dlp ✗  → pip install yt-dlp"
 command -v node   >/dev/null && echo "node ✓"   || echo "node ✗    → install Node.js"
 command -v python3 >/dev/null && echo "python3 ✓" || echo "python3 ✗"
+python3 -c "import PIL" 2>/dev/null && echo "Pillow ✓" || echo "Pillow ✗  → python3 -m pip install Pillow (for /carousels and /reels)"
 ```
 
 If `youtube-transcript` (the free Node fallback) matters to them: `npm install youtube-transcript`.
@@ -142,6 +155,9 @@ The workflow, start to finish:
   AFTER you publish
   5. /content-cascade <url or "latest">  → blog + Twitter thread + LinkedIn post (your voice)
   6. /short-form <url or "latest">       → 3–5 Reels/Shorts/TikTok clips with hooks & captions
+  7. /reels <video path or url>          → plan, film hooks, render 9:16 reels
+  8. /carousels <video folder>           → tweet-style slides + LinkedIn PDF + captions
+  9. /publish-pack <video folder>        → finished/ folder + PUBLISH PLAN.md (where and when)
 
 Try this now:  /ideation Claude Code for stock trading
 ```

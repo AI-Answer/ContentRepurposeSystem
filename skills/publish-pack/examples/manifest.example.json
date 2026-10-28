@@ -1,0 +1,61 @@
+{
+  "title": "10 Opus 5.5 tips",
+  "video_dir": ".",
+  "out": "finished",
+  "start_date": "2026-11-02",
+  "links": {
+    "video": null,
+    "offer": "https://www.skool.com/claude"
+  },
+  "long_form": {
+    "file": "out/final.mp4",
+    "notes": "youtube.md",
+    "length": "15:11"
+  },
+  "reels": [
+    {
+      "id": "R1",
+      "title": "Don't read the docs",
+      "file": "out/R1-H1.mp4",
+      "length": "57 s",
+      "opens_on": "Next time you need to learn something, don't read the docs.",
+      "platforms": ["Shorts", "Instagram", "TikTok", "LinkedIn"],
+      "variants": ["out/R1-H2.mp4"],
+      "hooks_to_film": ["R1-H3: \"People inside Anthropic type one command to learn anything fast.\""],
+      "captions": {
+        "TikTok": "Stop reading docs to learn new stuff.\nComment 'ELI5' and pick one thing you've been putting off learning.\n#claude #claudecode #ai"
+      }
+    },
+    {
+      "id": "R3",
+      "title": "2 prompts, night and morning",
+      "file": "out/R3-H1.mp4",
+      "length": "56 s",
+      "platforms": ["Shorts", "Instagram", "TikTok", "LinkedIn", "X"]
+    }
+  ],
+  "hooks_to_film": "film-hooks.md",
+  "carousels": [
+    { "title": "10 Opus 5.5 tips", "dir": "carousels/1 - 10 Opus 5.5 tips" },
+    { "title": "Steal my 2 prompts", "dir": "carousels/2 - Steal my 2 prompts" }
+  ],
+  "articles": [
+    { "src": "content/blog/2026-11-02-claude-opus-5-5-tips.md", "name": "article.md" },
+    { "src": "content/blog/images", "name": "images" },
+    { "src": "content/linkedin/2026-11-02-claude-opus-5-5-tips-article.md", "name": "LinkedIn article.md", "day": 3 }
+  ],
+  "text_posts": [
+    { "src": "content/twitter/2026-11-02-claude-opus-5-5-tips.md", "name": "X thread.md" },
+    { "src": "content/linkedin/2026-11-02-claude-opus-5-5-tips.md", "name": "LinkedIn post - story.md" },
+    { "src": "content/linkedin/2026-11-02-claude-opus-5-5-tips-lead-magnet.md", "name": "LinkedIn post - lead magnet.md" },
+    { "src": "content/newsletter/2026-11-02-claude-opus-5-5-tips.md", "name": "Newsletter email.md" }
+  ],
+  "lead_magnet": {
+    "label": "Claude Club - Opus 5.5 playbook",
+    "platforms": ["Community"],
+    "files": [
+      { "src": "content/guides/claude-opus-5-5-tips-guide.html", "name": "Opus 5.5 playbook.html" },
+      { "src": "content/guides/claude-opus-5-5-tips-guide.pdf", "name": "Opus 5.5 playbook.pdf" }
+    ]
+  }
+}

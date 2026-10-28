@@ -13,3 +13,9 @@ Thumbs.db
 node_modules/
 __pycache__/
 *.pyc
+
+# Personal carousel profile (written by /onboard)
+skills/carousels/profile.json
+
+# Per-video publish packs
+finished/

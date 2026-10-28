@@ -1,7 +1,7 @@
 {
   "name": "content-repurpose-system",
-  "version": "1.1.0",
-  "description": "Plan video ideas, titles, hooks, and outlines. Turn finished videos into blog and social drafts, clip plans, and vertical reels with filmed hook variants.",
+  "version": "1.2.0",
+  "description": "Plan video ideas, titles, hooks, and outlines. Turn finished videos into blog and social drafts, clip plans, vertical reels with filmed hook variants, and carousels, then package it all into a finished folder with a publish plan.",
   "author": {
     "name": "Samin Yasar",
     "url": "https://github.com/Samin12"
@@ -20,6 +20,11 @@
     "reels",
     "shorts",
     "hooks",
-    "skills"
+    "skills",
+    "carousels",
+    "instagram",
+    "tiktok",
+    "publish-plan",
+    "content-calendar"
   ]
 }

@@ -267,13 +267,14 @@ Generate a **Skool-ready guide** as HTML:
 
 ### Step 9 — Save to Vault / Local Files
 
-Save a local copy of each generated piece:
+Save a local copy of each generated piece in the video's working folder. This is the same per-video folder `/reels` and `/carousels` use (`<video>/`), so `/publish-pack` can find everything. If there is no video folder yet, make one named after the video's slug and tell the user.
 
-- **Blog post** — `content/blog/YYYY-MM-DD-SLUG.md`
-- **Twitter thread** — `content/twitter/YYYY-MM-DD-SLUG.md`
-- **LinkedIn (regular)** — `content/linkedin/YYYY-MM-DD-SLUG.md`
-- **LinkedIn (lead magnet)** — `content/linkedin/YYYY-MM-DD-SLUG-lead-magnet.md` (tutorials only)
-- **Skool guide (HTML)** — `content/guides/SLUG-guide.html` (tutorials only)
+- **Blog post** — `<video>/content/blog/YYYY-MM-DD-SLUG.md`
+- **Article images** — `<video>/content/blog/images/`
+- **Twitter thread** — `<video>/content/twitter/YYYY-MM-DD-SLUG.md`
+- **LinkedIn (regular)** — `<video>/content/linkedin/YYYY-MM-DD-SLUG.md`
+- **LinkedIn (lead magnet)** — `<video>/content/linkedin/YYYY-MM-DD-SLUG-lead-magnet.md` (tutorials only)
+- **Skool guide (HTML)** — `<video>/content/guides/SLUG-guide.html` (tutorials only)
 
 ### Step 10 — Summary
 
@@ -285,6 +286,8 @@ Report what was created:
 - If tutorial: LinkedIn lead magnet + Skool guide
 - Files saved
 - Any issues or review notes
+
+End by pointing at the next steps: `/carousels` turns the best ideas into slide posts, and `/publish-pack` puts every piece in `<video>/finished/` with captions per platform and a `PUBLISH PLAN.md` that says where and when to post each one.
 
 ## Autonomy Rules
 

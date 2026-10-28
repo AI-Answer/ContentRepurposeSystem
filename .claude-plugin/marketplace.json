@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Samin Yasar's content tooling for Claude Code.",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "content-repurpose-system",
       "source": "./",
-      "description": "Set up your channel and voice, plan videos, and turn finished edits into blog, Twitter, LinkedIn, clip plans, and reels with filmed hooks.",
-      "version": "1.1.0",
+      "description": "Set up your channel and voice, plan videos, and turn finished edits into blog, Twitter, LinkedIn, clip plans, reels with filmed hooks, and carousels. Then package everything into a finished folder with a publish plan.",
+      "version": "1.2.0",
       "author": {
         "name": "Samin Yasar",
         "url": "https://github.com/Samin12"
@@ -24,7 +24,11 @@
         "creator-tools",
         "short-form",
         "skills",
-        "reels"
+        "reels",
+        "carousels",
+        "linkedin",
+        "instagram",
+        "publishing"
       ]
     }
   ]

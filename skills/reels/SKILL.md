@@ -25,7 +25,7 @@ Turn one finished video into 3-6 reels. Each reel has one hook from the video an
 
 Use the finished edit, its transcript, and the raw camera takes with their matching `microphone.wav` files. Use the creator's Voice DNA if it exists. For a local file, channel onboarding is optional.
 
-Use one working folder per video. Run the commands below from that folder, called `BASE`. Keep these files there:
+Use one working folder per video. Run the commands below from that folder, called `BASE`. `/content-cascade`, `/carousels`, and `/publish-pack` use the same folder, so every output for the video lives together. Keep these files there:
 
 ```text
 work/words.json       Word timestamps from the finished edit
@@ -34,6 +34,7 @@ repurpose-plan.md     Ideas, exact excerpts, scores, and edit notes
 film-hooks.md         Lines the creator still needs to film
 hooks-filmed/         R1-H2.mov, R1-H3.mov, ...
 out/                 R1-H1.mp4, R1-H2.mp4, ...
+finished/            The publish pack, made by /publish-pack
 ```
 
 Check for `ffmpeg`, `ffprobe`, `whisper-cli`, Python 3, NumPy, and Pillow. Setup commands are in the plugin README. Whisper also needs a local model file. Read `whisper-cli --help` for the installed version's word timestamp options.
@@ -158,6 +159,8 @@ More options: `--cam-zoom` (default 1.1), `--font`, `--words`, `--out-dir`, `--w
 - Read alignment logs. Record each low-confidence window and review its fallback camera tile in playback.
 
 Report render paths, missing hook files, fallback windows, and any failed checks. Keep outputs as local drafts until the creator asks to publish.
+
+**Next:** run `/publish-pack`. It copies the reels into `BASE/finished/2 Reels - Instagram, TikTok, YouTube Shorts/` in posting order, writes a captions file per reel with one section per platform, and adds them to `PUBLISH PLAN.md`. Run it again after you attach and render filmed hooks.
 
 ## Layout Defaults and Other Videos
 

@@ -1,0 +1,63 @@
+{
+  "title": "Turn 1 video into a week of posts",
+  "theme": "light",
+  "profile": {
+    "name": "Your Name",
+    "handle": "@yourhandle",
+    "verified": true,
+    "headshot": null
+  },
+  "slides": [
+    {
+      "tweets": [
+        {
+          "text": "You made one video.\n\nHere's how it turns into a week of posts:",
+          "image": "cover.png"
+        }
+      ]
+    },
+    {
+      "tweets": [
+        {
+          "text": "Most creators post the video and move on.\n\nThe ideas inside it never reach the people who don't watch long videos.",
+          "image": null
+        }
+      ]
+    },
+    {
+      "tweets": [
+        { "text": "Step 1: Find the 3 to 5 ideas that work alone.", "image": null },
+        { "text": "Step 2: Cut each idea into a short reel.", "image": null }
+      ]
+    },
+    {
+      "tweets": [
+        {
+          "text": "Step 3: Turn the best idea into a carousel.\n\n→ One idea per slide\n→ Big text, few words\n→ A real screenshot as proof\n→ A save-worthy last slide",
+          "image": null
+        }
+      ]
+    },
+    {
+      "tweets": [
+        {
+          "text": "Step 4: Write the long version once.\n\nA blog post, a LinkedIn article and a newsletter can all come from the same draft.",
+          "image": null
+        }
+      ]
+    },
+    {
+      "tweets": [
+        {
+          "text": "Then put it all in one folder, with a plan for what goes where and when.\n\nOne video. Seven days of posts.\n\nSave this for your next upload.",
+          "image": null
+        }
+      ]
+    }
+  ],
+  "captions": {
+    "Instagram": "One video can fill a whole week.\n\nFind the ideas that stand on their own, cut them into reels, turn the best one into a carousel, and write the long version once.\n\nSave this for your next upload.\n\n#contentcreator #youtube #repurposing",
+    "LinkedIn": "You made one video. Most people post it and move on.\n\nHere's the 4-step way I turn one video into a week of posts. The full breakdown is in the document above.\n\nWhat's the one piece you'd make first?",
+    "TikTok (photo mode)": "One video, a week of posts. Save this for your next upload.\n\n#contentcreator #youtube"
+  }
+}

@@ -1,8 +1,8 @@
 # Content Repurpose System
 
-**Turn one finished video into blog and social drafts, clip plans, and vertical reels with hooks you can test.**
+**Turn one finished video into blog and social drafts, clip plans, vertical reels with hooks you can test, and carousels. Then get one folder that's ready to post, with a plan for where and when.**
 
-This [Claude Code](https://docs.claude.com/en/docs/claude-code) plugin has eight skills. **Onboard once** to set your channel and voice. Then use the skills to plan each video and reuse the finished edit. Title ideas use your channel performance data.
+This [Claude Code](https://docs.claude.com/en/docs/claude-code) plugin has ten skills. **Onboard once** to set your channel and voice. Then use the skills to plan each video and reuse the finished edit. Title ideas use your channel performance data.
 
 > The running example in this README uses the channel **[@SaminYasar_](https://www.youtube.com/@SaminYasar_)** — Claude Code tutorials for stock-trading automation. Swap in your own handle during onboarding and everything below works the same.
 
@@ -22,11 +22,13 @@ This [Claude Code](https://docs.claude.com/en/docs/claude-code) plugin has eight
    /hooks     →  /outlines      │     /short-form       →  3–5 clip plans
        │                        │            ↓
        │                        │     /reels            →  plan → film hooks → render 9:16 variants
-       │                        │
-       └──── film the video ────┘
+       │                        │            ↓
+       │                        │     /carousels        →  tweet-style slides + LinkedIn PDF
+       │                        │            ↓
+       └──── film the video ────┘     /publish-pack     →  finished/ folder + PUBLISH PLAN.md
 ```
 
-You publish **one** video. The system turns it into **a week of content** across six channels.
+You publish **one** video. The system turns it into **a week of content** across six channels. Every run ends in one `finished/` folder: numbered sections, captions per platform, and a plan that says what to post where, day by day.
 
 ---
 
@@ -62,10 +64,10 @@ Restart Claude Code, then run `/onboard`.
 | **Python 3** | channel performance and reel scripts | install Python 3 if missing |
 | **ffmpeg + ffprobe** | reel crops, audio, rendering, and checks | `brew install ffmpeg whisper-cpp` |
 | **whisper-cli** | local word timestamps for reel cuts and captions | included in `brew install ffmpeg whisper-cpp` |
-| **NumPy + Pillow** | raw-camera alignment and reel images | `python3 -m pip install numpy Pillow` |
+| **NumPy + Pillow** | raw-camera alignment, reel images, and carousel slides | `python3 -m pip install numpy Pillow` |
 | `youtube-transcript` *(optional)* | free transcript fallback | `npm install youtube-transcript` |
 
-The `/onboard` skill checks the base channel tools. `/reels` also checks the reel tools above. Whisper needs a local model file; point `whisper-cli -m` at it. For Python packages, use a virtual environment if your Python requires one.
+The `/onboard` skill checks the base channel tools. `/reels` also checks the reel tools above. `/carousels` and `/publish-pack` need only Python 3 and Pillow. Whisper needs a local model file; point `whisper-cli -m` at it. For Python packages, use a virtual environment if your Python requires one.
 
 ---
 
@@ -103,6 +105,8 @@ You:    Non-coders learning to build and automate with Claude — right now,
 From now on, your blog/Twitter/LinkedIn output sounds like *you*, not like a template.
 
 **3. Optional keys.** Apify (reliable transcripts), Supabase (auto-save drafts), Twitter (auto-post). All skippable — say "skip" and add them later.
+
+**4. Carousel profile (optional).** The name, handle, badge, and headshot path that show on your carousel slides. It's saved in `skills/carousels/profile.json`, which git ignores. Only the path to your photo is stored.
 
 **At the end, onboarding prints your workflow map** and a suggested first command. You only do this once per channel.
 
@@ -226,7 +230,7 @@ Claude auto-detects your latest upload, fetches the transcript, classifies the v
 - **A LinkedIn post** mirroring the video's premise
 - Because this one is a *tutorial*, it also generates a **LinkedIn lead-magnet post** + a **Skool-ready HTML guide**
 
-Each piece is shown to you for review before saving. With keys configured it can auto-save drafts to Supabase and auto-post the thread; without them, everything saves as local markdown under `content/`.
+Each piece is shown to you for review before saving. With keys configured it can auto-save drafts to Supabase and auto-post the thread; without them, everything saves as local markdown under the video folder's `content/`, next to the reels and carousels.
 
 ---
 
@@ -266,9 +270,54 @@ The default is 1080x1920: visuals on top, your raw camera on the bottom, and cap
 
 ---
 
+### Step 9: `/carousels`: slides people save
+
+```
+You:  /carousels the tips video
+```
+
+Claude picks 1-5 ideas that work without the video: a list, prompts to copy, a framework. It writes 6-10 slides per idea in your voice. The cover gets a frame from the video. Other slides get real proof: docs pages, posts, your own screen. Then it renders:
+
+```
+carousels/2 - Steal my 2 prompts/
+  slides/01.png ... 08.png          1080x1350, light or dark
+  Steal my 2 prompts - LinkedIn.pdf one page per slide
+  captions.txt                      Instagram, LinkedIn, TikTok (photo mode)
+  config.json                       edit and re-render any time
+```
+
+The renderer warns about text that runs off a slide, a lone word on a last line, and a cover with no image. Claude opens every slide and fixes what it finds. The [carousels skill](skills/carousels/SKILL.md) has the config format and an [example](skills/carousels/examples/example-config.json).
+
+---
+
+### Step 10: `/publish-pack`: one folder, ready to post
+
+```
+You:  make the finished products folder
+```
+
+Claude gathers every output for the video into `<video>/finished/`:
+
+```
+finished/
+  README.md
+  PUBLISH PLAN.md
+  1 YouTube long-form/
+  2 Reels - Instagram, TikTok, YouTube Shorts/      1 - R1 Don't read the docs.mp4 + captions
+  3 Hooks to film/
+  4 Carousels - Instagram, LinkedIn, TikTok/
+  5 Articles - blog, LinkedIn, Substack/
+  6 Text posts - X, LinkedIn, Threads, newsletter/
+  7 Claude Club - Opus 5.5 playbook/
+```
+
+Files are numbered in posting order. Each reel and carousel has a captions file with one section per platform. `PUBLISH PLAN.md` has four parts: what's here, a matrix of where each piece goes, a day-by-day calendar, and a checklist. A script does the copying (APFS clones on a Mac, so big videos take no extra space) and drafts the plan. Claude writes the captions, the "why that split" notes, and the final calendar.
+
+---
+
 ## What you have at the end
 
-After the content commands and the reel filming loop, you have local files or drafts:
+After the content commands, the reel filming loop, and `/publish-pack`, you have one folder of local files and drafts:
 
 | Asset | From | Ready for |
 |-------|------|-----------|
@@ -279,6 +328,8 @@ After the content commands and the reel filming loop, you have local files or dr
 | 📚 Skool guide (HTML) | `content-cascade` *(tutorials)* | your Skool / Claude Club |
 | 🎬 3–5 clip plans | `short-form` | Timestamps, hooks, and captions for editing |
 | 🎬 3-6 reels with available hook variants | `reels` | Reviewed 9:16 files in `out/` |
+| 🖼️ 1-5 carousels + LinkedIn PDFs | `carousels` | Instagram, LinkedIn, TikTok photo mode |
+| 📦 `finished/` folder + `PUBLISH PLAN.md` | `publish-pack` | Posting, day by day |
 
 Plus, from the pre-production side: a ranked idea, a tested title + thumbnail text, an aligned hook, and a filmable outline — so the next video is faster than the last.
 
@@ -296,8 +347,10 @@ Plus, from the pre-production side: a ranked idea, a tested title + thumbnail te
 | 5 | **content-cascade** | `/content-cascade <url\|latest>` | Blog + Twitter + LinkedIn (+ lead magnet + guide) |
 | 6 | **short-form** | `/short-form <url\|latest>` | 3–5 clips with hooks, captions, hashtags, timestamps |
 | 7 | **reels** | `/reels <video path\|url>` | Plan 3-6 reels, list hooks to film, and render variants |
+| 8 | **carousels** | `/carousels <video folder>` | Tweet-style slides, a LinkedIn PDF, and captions per platform |
+| 9 | **publish-pack** | `/publish-pack <video folder>` | The numbered `finished/` folder, captions files, and `PUBLISH PLAN.md` |
 
-You can also ask in plain English. "Give me title ideas" triggers `yt-titles`. "Make shorts from my latest video" triggers `short-form`. "What hooks should I film?" and "attach my filmed hooks" trigger `reels`.
+You can also ask in plain English. "Give me title ideas" triggers `yt-titles`. "Make shorts from my latest video" triggers `short-form`. "What hooks should I film?" and "attach my filmed hooks" trigger `reels`. "Make carousels from this video" triggers `carousels`. "Make the finished products folder", "package everything to publish", and "where should I post what?" trigger `publish-pack`.
 
 ---
 
