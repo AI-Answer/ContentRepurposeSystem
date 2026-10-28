@@ -141,6 +141,14 @@ python3 "${CLAUDE_PLUGIN_ROOT}/skills/reels/scripts/make_reel.py" --plan work/re
 
 `--debug` also writes `out/R1-H1.align.json` and a contact sheet `.jpg`. Use `--all --debug` when reviewing the full batch. Other supported overrides are `--edited`, `--raw-dir`, and `--hooks-dir`.
 
+The working folder (`BASE`) is taken from the plan's location: `<BASE>/work/reels.json` means outputs go to `<BASE>/out/` and filmed hooks are read from `<BASE>/hooks-filmed/`. Set `source.edited` and `source.raw_dir` in the plan, or pass `--edited` and `--raw-dir`.
+
+Two safety nets are on by default:
+- **Cut snapping.** A cut that lands in speech moves to the quietest spot within 0.3 s, so planned word times that are a bit off never clip a word. Cuts that are already quiet stay put, and a cut never grows into source time another piece of the same reel plays. Turn it off with `--no-snap-cuts`.
+- **Caption lead.** Whisper word times run a little late, so captions show 0.25 s early. Change it with `--caption-lead 0.1` (or `0` for exact transcript times).
+
+More options: `--cam-zoom` (default 1.1), `--font`, `--words`, `--out-dir`, `--whisper-model`, `--keep-temp`. A hook can set `accent_word` to pick the orange word in its on-screen text, and a reel can set `caption_fixes` (`{"heard": "right"}`) to fix names the transcript gets wrong.
+
 **Check every rendered variant:**
 - Inspect its contact sheet for crop, readable proof, camera framing, hook text, and captions at the seam.
 - Play the whole reel with sound. Match captions to audio, check lip sync across jump cuts, and check the hook-to-body cut. A contact sheet alone cannot prove sync.
@@ -159,7 +167,7 @@ The default is Samin's Borumi layout in a 1920x1080 edit:
 |------|---------|
 | Output | 9:16, 1080x1920, 30 fps, H.264 + AAC, -14 LUFS |
 | Top | About 1080x810; the edited visuals panel, scaled to fit the width |
-| Bottom | About 1080x1110; face and upper body from the raw 4K camera |
+| Bottom | About 1080x1110; face and upper body from the raw camera |
 | Captions | 2-4 words, bold white with dark stroke; current word in orange `#E8774A` |
 | Caption position | On the seam, around y 790-900 |
 | Hook text | Over the top of the frame for roughly the first 2.5 seconds |
